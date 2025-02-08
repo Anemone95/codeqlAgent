@@ -5,7 +5,7 @@ Let codeql scan `node_module` path.
 ```base
 mvn packages
 ```
-Edit `codeql/codeql/javascript/tools/autobuild.sh`, modify:
+Edit `codeql-home/codeql/javascript/tools/autobuild.sh`, modify:
 ```bash
 env SEMMLE_DIST="$CODEQL_EXTRACTOR_JAVASCRIPT_ROOT" \
     LGTM_SRC="$(pwd)" \
