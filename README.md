@@ -23,3 +23,12 @@ env SEMMLE_DIST="$CODEQL_EXTRACTOR_JAVASCRIPT_ROOT" \
     com.semmle.js.extractor.AutoBuild
 ```
 Support CodeQL toolchain version: <=2.20.1. Beyond that I haven't test but maybe still work.
+
+If you want to scan all files (including nested `node_modules` and hidden files), set your directory to environment variable `LGTM_INCLUDE_DIRS`:
+```bash
+export LGTM_INCLUDE_DIRS="." # use \n to separate multiple directories
+```
+Then run the `codeql` command to build database
+```bash
+codeql database create --language=javascript codeql-database --source-root="$TARGET_DIR" --overwrite
+```
