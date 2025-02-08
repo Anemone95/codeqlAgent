@@ -143,65 +143,65 @@ public class BytecodeModifierAgent {
                         seenInclude = seenInclude | this.addPathPattern(this.includes, this.LGTM_SRC, pattern);
                     }
 
-//                    if (!seenInclude) {
-//                        this.includes.add(this.LGTM_SRC);
-//                    }
+                    if (!seenInclude) {
+                        this.includes.add(this.LGTM_SRC);
+                    }
 
-//                    String[] excludes = com.semmle.js.extractor.Main.NEWLINE.split(getEnvVar("LGTM_INDEX_EXCLUDE", ""));
-//
-//                    for (int index = 0; index < excludes.length; index++) {
-//                        String pattern = excludes[index];
-//                        this.addPathPattern(this.excludes, this.LGTM_SRC, pattern);
-//                    }
+                    String[] excludes = com.semmle.js.extractor.Main.NEWLINE.split(getEnvVar("LGTM_INDEX_EXCLUDE", ""));
 
-//                    String lgtmRepositoryFoldersCsv = this.getEnvVar("LGTM_REPOSITORY_FOLDERS_CSV");
-//                    if (lgtmRepositoryFoldersCsv != null) {
-//                        java.nio.file.Path path = java.nio.file.Paths.get(lgtmRepositoryFoldersCsv, new String[0]);
-//                        try {
-//                            java.io.Reader reader = java.nio.file.Files.newBufferedReader(path, java.nio.charset.StandardCharsets.UTF_8);
-//                            com.semmle.util.io.csv.CSVReader csv = new com.semmle.util.io.csv.CSVReader(reader);
-//                            try {
-//                                csv.readNext();
-//                                while (true) {
-//                                    String[] fields;
-//                                    do {
-//                                        do {
-//                                            fields = csv.readNext();
-//                                            if (fields == null) {
-//                                                break;
-//                                            }
-//                                        } while (fields.length != 2);
-//                                    } while (!"external".equals(fields[0]) && !"metadata".equals(fields[0]));
-//
-//                                    String folder = fields[1];
-//
-//                                    try {
-//                                        java.nio.file.Path folderPath = folder.startsWith("file://") ? java.nio.file.Paths.get(new java.net.URI(folder)) : java.nio.file.Paths.get(folder, new String[0]);
-//                                        this.excludes.add(this.toRealPath(folderPath));
-//                                    } catch (java.net.URISyntaxException e) {
-//                                        com.semmle.util.exception.Exceptions.ignore(e, "Ignore path and print warning message instead");
-//                                        this.warn("Ignoring '" + fields[0] + "' classification for " + folder + ", which is not a valid path.");
-//                                    } catch (com.semmle.util.exception.ResourceError e) {
-//                                        com.semmle.util.exception.Exceptions.ignore(e, "Ignore path and print warning message instead");
-//                                        this.warn("Ignoring '" + fields[0] + "' classification for " + folder + ", which is not a valid path.");
-//                                    } catch (java.nio.file.InvalidPathException e) {
-//                                        com.semmle.util.exception.Exceptions.ignore(e, "Ignore path and print warning message instead");
-//                                        this.warn("Ignoring '" + fields[0] + "' classification for " + folder + ", which is not a valid path.");
-//                                    }
-//                                }
-//                            } finally {
-//                                try {
-//                                    csv.close();
-//                                } finally {
-//                                    reader.close();
-//                                }
-//                            }
-//                        } catch (java.io.IOException e) {
-//                            ;
-//                        }
-//                    }
-                }
-                """);
+                    for (int index = 0; index < excludes.length; index++) {
+                        String pattern = excludes[index];
+                        this.addPathPattern(this.excludes, this.LGTM_SRC, pattern);
+                    }
+
+                    String lgtmRepositoryFoldersCsv = this.getEnvVar("LGTM_REPOSITORY_FOLDERS_CSV");
+                    if (lgtmRepositoryFoldersCsv != null) {
+                        java.nio.file.Path path = java.nio.file.Paths.get(lgtmRepositoryFoldersCsv, new String[0]);
+                        try {
+                            java.io.Reader reader = java.nio.file.Files.newBufferedReader(path, java.nio.charset.StandardCharsets.UTF_8);
+                            com.semmle.util.io.csv.CSVReader csv = new com.semmle.util.io.csv.CSVReader(reader);
+                            try {
+                                csv.readNext();
+                                while (true) {
+                                    String[] fields;
+                                    do {
+                                        do {
+                                            fields = csv.readNext();
+                                            if (fields == null) {
+                                                break;
+                                            }
+                                        } while (fields.length != 2);
+                                    } while (!"external".equals(fields[0]) && !"metadata".equals(fields[0]));
+
+                                    String folder = fields[1];
+
+                                    try {
+                                        java.nio.file.Path folderPath = folder.startsWith("file://") ? java.nio.file.Paths.get(new java.net.URI(folder)) : java.nio.file.Paths.get(folder, new String[0]);
+                                        this.excludes.add(this.toRealPath(folderPath));
+                                    } catch (java.net.URISyntaxException e) {
+                                        com.semmle.util.exception.Exceptions.ignore(e, "Ignore path and print warning message instead");
+                                        this.warn("Ignoring '" + fields[0] + "' classification for " + folder + ", which is not a valid path.");
+                                    } catch (com.semmle.util.exception.ResourceError e) {
+                                        com.semmle.util.exception.Exceptions.ignore(e, "Ignore path and print warning message instead");
+                                        this.warn("Ignoring '" + fields[0] + "' classification for " + folder + ", which is not a valid path.");
+                                    } catch (java.nio.file.InvalidPathException e) {
+                                        com.semmle.util.exception.Exceptions.ignore(e, "Ignore path and print warning message instead");
+                                        this.warn("Ignoring '" + fields[0] + "' classification for " + folder + ", which is not a valid path.");
+                                    }
+                                }
+                            } finally {
+                                try {
+                                    csv.close();
+                                } finally {
+                                    reader.close();
+                                }
+                            }
+                        } catch (java.io.IOException e) {
+                            ;
+                        }
+                    }
+               }
+               """);
 
         return ctClass.toBytecode();
     }
