@@ -122,7 +122,7 @@ public class BytecodeModifierAgent {
                                 String name = entry.getName();
                                 if (entry.isDirectory()) {
                                     queue.add(entry.toPath());
-                                } else if (name.endsWith(".js") || name.endsWith(".jsx") || name.endsWith(".ts") || name.endsWith(".tsx")) {
+                                } else if (name.endsWith(".json") || name.endsWith(".js") || name.endsWith(".jsx") || name.endsWith(".ts") || name.endsWith(".tsx")) {
                                     System.out.println("[ModifiedCodeQL] Adding " + entry.toPath() + " to includes");
                                     includes2.add(entry.toPath().toString());
                                 }
